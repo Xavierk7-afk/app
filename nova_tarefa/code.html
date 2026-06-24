@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nova Tarefa - TaskFlow</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-container": "#6f9296",
+                    "tertiary-fixed": "#c4e9ed",
+                    "surface-tint": "#396285",
+                    "surface-dim": "#d9dadd",
+                    "outline-variant": "#c3c7ce",
+                    "on-tertiary": "#ffffff",
+                    "inverse-on-surface": "#f0f0f3",
+                    "on-surface-variant": "#42474d",
+                    "on-background": "#1a1c1e",
+                    "surface-container": "#eeedf1",
+                    "surface-bright": "#f9f9fc",
+                    "surface-container-high": "#e8e8eb",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#85cbfe",
+                    "inverse-primary": "#a2cbf2",
+                    "on-tertiary-fixed-variant": "#294c4f",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#e2e2e5",
+                    "surface-container-low": "#f3f3f6",
+                    "on-surface": "#1a1c1e",
+                    "inverse-surface": "#2f3133",
+                    "tertiary-fixed-dim": "#a8cdd1",
+                    "tertiary": "#001315",
+                    "tertiary-container": "#012a2d",
+                    "on-tertiary-fixed": "#002022",
+                    "primary-fixed-dim": "#a2cbf2",
+                    "secondary-fixed": "#cae6ff",
+                    "background": "#f9f9fc",
+                    "surface": "#f9f9fc",
+                    "primary-container": "#002740",
+                    "secondary": "#016492",
+                    "on-secondary-fixed": "#001e2f",
+                    "error-container": "#ffdad6",
+                    "on-secondary-container": "#00567e",
+                    "surface-container-lowest": "#ffffff",
+                    "outline": "#72777e",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#8cceff",
+                    "primary": "#001120",
+                    "on-primary-fixed": "#001d32",
+                    "on-primary-fixed-variant": "#1e4a6c",
+                    "primary-fixed": "#cde5ff",
+                    "on-primary-container": "#6890b5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "20px",
+                    "gutter-mobile": "16px",
+                    "lg": "32px",
+                    "base": "8px",
+                    "xs": "4px",
+                    "sm": "12px",
+                    "xl": "48px",
+                    "margin-mobile": "24px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "title-lg": ["Plus Jakarta Sans"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "body-lg": ["17px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-md": ["15px", {"lineHeight": "22px", "fontWeight": "400"}],
+                    "label-lg": ["13px", {"lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-md": ["11px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .shadow-ambient {
+            shadow-color: theme('colors.primary');
+            box-shadow: 0px 4px 30px rgba(12, 61, 94, 0.05);
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            background-color: theme('colors.surface-container-low');
+            transition: all 0.2s ease-in-out;
+        }
+        .active-scale:active {
+            transform: scale(0.98);
+        }
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden">
+<!-- Top AppBar (From JSON Guidance) -->
+<header class="bg-background dark:bg-background docked full-width top-0 z-50 flex justify-between items-center px-margin-mobile py-sm w-full">
+<div class="flex items-center gap-sm">
+<button class="text-primary dark:text-primary-fixed hover:opacity-80 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary dark:text-primary-fixed">
+                Nova Tarefa
+            </h1>
+</div>
+<div class="h-10 w-10 rounded-full bg-surface-container-highest overflow-hidden active:scale-95 transition-transform border-2 border-primary-fixed">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a young adult male with a friendly expression, captured with soft natural studio lighting. The setting is clean and minimalist with a neutral background, echoing a premium, modern light-mode design system. The image is crisp, using a cool and balanced color palette consistent with a minimalist aquatic productivity app theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxJn6ncqg9Q5TkX3EikG5gtdMKEFXJFGtDVDNZtOaOEF6YyCTkjaCdibmpfjVCvdU2qGqVO3jJdZN2u6xJW_4-6ghFYqfnXb7BJMyLwUk9_ReANnUmCBgJjeX5MM52ggKuSgp_wzX39WLyrmShxR92CmZimakL7YOFS-OYd7OY_nHDr3_JEEvvxS8Le5LiChiLOP3F6nMhnENOtJgYlyAgf1RhhsnCEAkhK__8Yk1y9UvCz1nu5wLKVLr-LYJmQzG7UEyIGw7RbTI"/>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="px-margin-mobile pt-md pb-[120px] flex flex-col gap-md">
+<!-- Input Group: Task Identity -->
+<section class="flex flex-col gap-sm">
+<div class="group">
+<label class="font-label-lg text-secondary px-base mb-xs block">Título da Tarefa</label>
+<input class="w-full bg-surface-container-low border-none rounded-[16px] px-md py-[18px] font-title-lg text-on-surface placeholder:text-outline/50 transition-all focus:ring-2 focus:ring-secondary/20 shadow-sm" placeholder="Ex: Reunião de Planejamento" type="text"/>
+</div>
+<div class="group">
+<label class="font-label-lg text-secondary px-base mb-xs block">Descrição</label>
+<textarea class="w-full bg-surface-container-low border-none rounded-[16px] px-md py-md font-body-lg text-on-surface placeholder:text-outline/50 transition-all focus:ring-2 focus:ring-secondary/20 resize-none shadow-sm" placeholder="Adicione detalhes sobre sua tarefa aqui..." rows="4"></textarea>
+</div>
+</section>
+<!-- Bento Layout for Schedule -->
+<section class="grid grid-cols-2 gap-sm">
+<div class="bg-surface-container-lowest rounded-[24px] p-md shadow-ambient flex flex-col gap-xs active-scale transition-all border border-surface-variant/30 cursor-pointer">
+<div class="flex items-center gap-xs text-secondary">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+<span class="font-label-lg uppercase tracking-wider">Data</span>
+</div>
+<p class="font-title-lg text-on-surface mt-xs">Hoje</p>
+<span class="font-body-md text-outline">12 de Outubro</span>
+</div>
+<div class="bg-surface-container-lowest rounded-[24px] p-md shadow-ambient flex flex-col gap-xs active-scale transition-all border border-surface-variant/30 cursor-pointer">
+<div class="flex items-center gap-xs text-secondary">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+<span class="font-label-lg uppercase tracking-wider">Hora</span>
+</div>
+<p class="font-title-lg text-on-surface mt-xs">09:00</p>
+<span class="font-body-md text-outline">Manhã</span>
+</div>
+</section>
+<!-- Priority Selector -->
+<section class="bg-surface-container-lowest rounded-[24px] p-md shadow-ambient border border-surface-variant/30">
+<h3 class="font-label-lg text-secondary mb-md">NÍVEL DE PRIORIDADE</h3>
+<div class="flex gap-sm">
+<!-- Priority: Low -->
+<button class="priority-chip flex-1 py-sm rounded-xl border-2 border-surface-container-highest text-outline font-label-lg transition-all active-scale hover:bg-surface-container-low" onclick="selectPriority(this)">
+                    Baixa
+                </button>
+<!-- Priority: Medium -->
+<button class="priority-chip flex-1 py-sm rounded-xl border-2 border-secondary-container bg-secondary-container text-on-secondary-container font-label-lg transition-all active-scale" onclick="selectPriority(this)">
+                    Média
+                </button>
+<!-- Priority: High -->
+<button class="priority-chip flex-1 py-sm rounded-xl border-2 border-surface-container-highest text-outline font-label-lg transition-all active-scale hover:bg-surface-container-low" onclick="selectPriority(this)">
+                    Alta
+                </button>
+</div>
+</section>
+<!-- Action Buttons -->
+<section class="flex flex-col gap-sm mt-base">
+<button class="h-[56px] w-full bg-primary text-on-primary rounded-full font-title-lg shadow-ambient active:scale-95 transition-transform flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined">check_circle</span>
+                Salvar Tarefa
+            </button>
+<button class="h-[56px] w-full border-2 border-outline-variant text-outline rounded-full font-title-lg active:scale-95 transition-transform">
+                Cancelar
+            </button>
+</section>
+</main>
+<!-- Bottom Navigation (From JSON Guidance - "Nova" is active) -->
+<nav class="fixed bottom-md left-margin-mobile right-margin-mobile z-50 flex justify-around items-center h-16 bg-surface-container-lowest dark:bg-surface-container rounded-full shadow-[0px_4px_30px_rgba(12,61,94,0.05)]">
+<!-- Tarefas -->
+<div class="flex flex-col items-center justify-center text-outline dark:text-outline-variant px-lg py-xs hover:text-secondary cursor-pointer transition-all active:scale-98">
+<span class="material-symbols-outlined">task_alt</span>
+<span class="font-label-md text-label-md">Tarefas</span>
+</div>
+<!-- Nova (ACTIVE) -->
+<div class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-lg py-xs cursor-pointer shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+<span class="font-label-md text-label-md">Nova</span>
+</div>
+<!-- Gráficos -->
+<div class="flex flex-col items-center justify-center text-outline dark:text-outline-variant px-lg py-xs hover:text-secondary cursor-pointer transition-all active:scale-98">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-label-md text-label-md">Gráficos</span>
+</div>
+<!-- Perfil -->
+<div class="flex flex-col items-center justify-center text-outline dark:text-outline-variant px-lg py-xs hover:text-secondary cursor-pointer transition-all active:scale-98">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Perfil</span>
+</div>
+</nav>
+<script>
+        function selectPriority(element) {
+            // Remove active classes from all chips
+            document.querySelectorAll('.priority-chip').forEach(chip => {
+                chip.classList.remove('bg-secondary-container', 'text-on-secondary-container', 'border-secondary-container');
+                chip.classList.add('border-surface-container-highest', 'text-outline');
+            });
+            // Add active classes to selected chip
+            element.classList.remove('border-surface-container-highest', 'text-outline');
+            element.classList.add('bg-secondary-container', 'text-on-secondary-container', 'border-secondary-container');
+        }
+
+        // Simple tactile feedback simulation
+        document.querySelectorAll('button, input, textarea, .priority-chip').forEach(el => {
+            el.addEventListener('click', () => {
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(5);
+                }
+            });
+        });
+    </script>
+</body></html>
